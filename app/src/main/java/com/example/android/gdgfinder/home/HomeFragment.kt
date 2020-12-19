@@ -5,24 +5,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.android.gdgfinder.R
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import com.example.android.gdgfinder.databinding.HomeFragmentBinding
+import com.example.android.gdgfinder.home.HomeFragmentDirections.actionHomeFragmentToGdgListFragment as toGdgListFragment
 
 class HomeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
-    private lateinit var viewModel: HomeViewModel
+    private val navController: NavController by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.home_fragment, container, false)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+    ): View = HomeFragmentBinding.inflate(inflater, container, false)
+        .apply {
+            this.viewModel = this@HomeFragment.viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
+        .root
 
-        return view
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.navigateToSearch.observe(viewLifecycleOwner) { navigate ->
+            if (navigate) {
+                navController.navigate(toGdgListFragment())
+                viewModel.onNavigatedToSearch()
+            }
+        }
     }
 }
