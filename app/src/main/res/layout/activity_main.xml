@@ -26,7 +26,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/app_name"
                     app:srcCompat="@drawable/logo"
-                    app:tint="?colorOnPrimary"
+                    app:tint="?colorOnSecondary"
                     />
             </androidx.appcompat.widget.Toolbar>
 
@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="?colorPrimaryDark"
-            app:itemTextColor="?colorOnPrimary"
+            app:itemTextColor="?colorOnSecondary"
             app:menu="@menu/drawer_view"
             />
     </androidx.drawerlayout.widget.DrawerLayout>
