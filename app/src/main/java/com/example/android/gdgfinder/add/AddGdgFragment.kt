@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 
 import com.example.android.gdgfinder.R
 import com.example.android.gdgfinder.databinding.AddGdgFragmentBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
 class AddGdgFragment : Fragment() {
@@ -18,22 +19,23 @@ class AddGdgFragment : Fragment() {
         ViewModelProvider(this).get(AddGdgViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         val binding = AddGdgFragmentBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        binding.setLifecycleOwner(this)
-
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        viewModel.showSnackBarEvent.observe(this, Observer {
-            if (it == true) { // Observed state is true.
-                Snackbar.make(
-                    activity!!.findViewById(android.R.id.content),
-                    getString(R.string.application_submitted),
-                    Snackbar.LENGTH_SHORT // How long to display the message.
-                ).show()
+        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, {
+            if (it == true) {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setMessage(R.string.application_submitted)
+                    .setPositiveButton(R.string.i_got_it, null)
+                    .show()
                 viewModel.doneShowingSnackbar()
             }
         })
