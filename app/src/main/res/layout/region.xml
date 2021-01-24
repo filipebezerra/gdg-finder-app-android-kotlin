@@ -7,5 +7,5 @@
     android:layout_height="wrap_content"
     app:checkedIconVisible="true"
     tools:checked="true"
-    app:chipBackgroundColor="@drawable/selected_highlight"
+    app:chipBackgroundColor="@color/selected_highlight"
     />
