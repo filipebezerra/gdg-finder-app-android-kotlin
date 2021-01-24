@@ -11,9 +11,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.android.gdgfinder.R
 import com.example.android.gdgfinder.databinding.FragmentGdgListBinding
 import com.google.android.gms.location.*
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_gdg_list.*
 
 private const val LOCATION_PERMISSION_REQUEST = 1
 
@@ -37,7 +40,7 @@ class GdgListFragment : Fragment() {
         binding.viewModel = viewModel
 
         val adapter = GdgListAdapter(GdgClickListener { chapter ->
-            val destination = Uri.parse(chapter.website)
+            val destination = Uri.parse(chapter.url)
             startActivity(Intent(Intent.ACTION_VIEW, destination))
         })
 
@@ -56,6 +59,24 @@ class GdgListFragment : Fragment() {
                 }
             }
         })
+        viewModel.regionList.observe(viewLifecycleOwner) { regions ->
+            val chipGroup = binding.regionList
+            val layoutInflater = LayoutInflater.from(chipGroup.context)
+
+            val children = regions.map { regionName ->
+                (layoutInflater.inflate(R.layout.region, chipGroup, false) as Chip).apply {
+                    text = regionName
+                    tag = regionName
+                    setOnCheckedChangeListener { buttonName, isChecked ->
+                        viewModel.onFilterChanged(buttonName.tag as String, isChecked)
+                    }
+                }
+            }
+
+            chipGroup.removeAllViews()
+
+            for (chip in children) { chipGroup.addView(chip) }
+        }
 
         setHasOptionsMenu(true)
         return binding.root
