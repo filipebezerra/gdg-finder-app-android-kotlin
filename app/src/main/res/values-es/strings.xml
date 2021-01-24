@@ -31,4 +31,8 @@
     <string name="submitted">Enviado, no hay necesidad de enviar de nuevo.</string>
     <string name="done">Hecho</string>
     <string name="submit">Enviar</string>
+    <string name="i_got_it">Déjalo conmigo</string>
+    <string name="day_mode">Modo día</string>
+    <string name="night_mode">Modo nocturno</string>
+    <string name="app_theme">Tema de la aplicación</string>
 </resources>

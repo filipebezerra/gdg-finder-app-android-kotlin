@@ -39,4 +39,7 @@
     <string name="done">Done</string>
     <string name="submit">Submit</string>
     <string name="i_got_it">I Got It</string>
+    <string name="day_mode">Day mode</string>
+    <string name="night_mode">Night mode</string>
+    <string name="app_theme">App theme</string>
 </resources>

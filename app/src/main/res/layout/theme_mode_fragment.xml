@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".thememode.ThemeModeFragment"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.android.gdgfinder.thememode.ThemeModeViewModel"
+            />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/day_mode_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/normal_spacing"
+            android:textAppearance="?attr/textAppearanceHeadline4"
+            android:text="@string/day_mode"
+            android:onClick="@{() -> viewModel.onChooseDayMode()}"
+            />
+
+        <TextView
+            android:id="@+id/nigt_mode_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/normal_spacing"
+            android:textAppearance="?attr/textAppearanceHeadline4"
+            android:text="@string/night_mode"
+                android:onClick="@{() -> viewModel.onChooseNightMode()}"
+            />
+    </LinearLayout>
+</layout>
